@@ -94,7 +94,7 @@ const ticketBookingScheama = new mongoose.Schema({
     required: true,
   },
   flightNo: {
-    type: Number,
+    type: String,
     required: true,
   },
   flightDate: {
