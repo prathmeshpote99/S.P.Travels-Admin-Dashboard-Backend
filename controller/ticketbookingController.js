@@ -38,6 +38,7 @@ const addTicketBookingData = async (req, res) => {
       sgstAmt: req.body.sgstAmt,
       totalAmount: req.body.totalAmount,
       pickupCharges: req.body.pickupCharges,
+      createdAt: new Date(),
     });
     const saveDetails = await customerDetails.save();
     res.status(200).send({
