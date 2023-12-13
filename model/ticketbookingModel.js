@@ -113,7 +113,10 @@ const ticketBookingScheama = new mongoose.Schema({
     type: String,
     required: true,
   },
-  //collectionThrough Remaining
+  collectionThrough: {
+    type: String,
+    required: true,
+  },
   totalSeats: {
     type: Number,
     required: true,
@@ -134,11 +137,11 @@ const ticketBookingScheama = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  totalAmount: {
+  pickupCharges: {
     type: Number,
     required: true,
   },
-  pickupCharges: {
+  totalAmount: {
     type: Number,
     required: true,
   },

@@ -31,13 +31,14 @@ const addTicketBookingData = async (req, res) => {
       flightETA: req.body.flightETA,
       departDate: req.body.departDate,
       departTime: req.body.departTime,
+      collectionThrough: req.body.collectionThrough,
       totalSeats: req.body.totalSeats,
       ticketAmount: req.body.ticketAmount,
       discountAmount: req.body.discountAmount,
       cgstAmt: req.body.cgstAmt,
       sgstAmt: req.body.sgstAmt,
-      totalAmount: req.body.totalAmount,
       pickupCharges: req.body.pickupCharges,
+      totalAmount: req.body.totalAmount,
       createdAt: new Date(),
     });
     const saveDetails = await customerDetails.save();
@@ -51,4 +52,13 @@ const addTicketBookingData = async (req, res) => {
   }
 };
 
-module.exports = { addTicketBookingData };
+const getCustomers = async (req, res) => {
+  const getData = await ticketBookingModel.find();
+  try {
+    res.status(200).send(getData);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+module.exports = { addTicketBookingData, getCustomers };
