@@ -61,4 +61,44 @@ const getCustomers = async (req, res) => {
   }
 };
 
-module.exports = { addTicketBookingData, getCustomers };
+const updateTicketBookingData = async (req, res) => {
+  try {
+    const updatedDetails = await ticketBookingModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+        modifiedAt: new Date(),
+      },
+      { new: true }
+    );
+    res.status(200).send({
+      msg: "Update Successful",
+      bookingDetails: updatedDetails,
+    });
+  } catch (error) {
+    res.status(400).send(error);
+    console.log(error);
+  }
+};
+
+const deleteTicketBookingData = async (req, res) => {
+  try {
+    const deletedDetails = await ticketBookingModel.findByIdAndRemove(
+      req.params.id
+    );
+    res.status(200).send({
+      msg: "Delete Successful",
+      bookingDetails: deletedDetails,
+    });
+  } catch (error) {
+    res.status(400).send(error);
+    console.log(error);
+  }
+};
+
+module.exports = {
+  addTicketBookingData,
+  getCustomers,
+  updateTicketBookingData,
+  deleteTicketBookingData,
+};
