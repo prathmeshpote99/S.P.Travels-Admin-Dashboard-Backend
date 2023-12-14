@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const PORT = process.env.PORT || 8000;
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -17,6 +18,6 @@ app.use(cors());
 const ticketBookingRoute = require("./route/ticketbookingRoute");
 app.use("/addcustomer", ticketBookingRoute);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server Running on Port ${process.env.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server Running on Port ${PORT}`);
 });
