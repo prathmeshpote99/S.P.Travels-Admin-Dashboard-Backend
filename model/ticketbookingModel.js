@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const ticketBookingScheama = new mongoose.Schema({
   prnNo: {
@@ -48,14 +49,22 @@ const ticketBookingScheama = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw Error("Not valid email");
+      }
+    },
   },
   phoneNo: {
     type: Number,
     required: true,
+    unique: true,
   },
   alternatePhoneNo: {
     type: Number,
     required: true,
+    unique: true,
   },
   address: {
     type: String,
@@ -151,4 +160,4 @@ const ticketBookingScheama = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("TicketBookingData", ticketBookingScheama);
+module.exports = mongoose.model("ticketbookingdatas", ticketBookingScheama);
