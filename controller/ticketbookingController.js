@@ -82,13 +82,14 @@ const updateTicketBookingData = async (req, res) => {
 };
 
 const deleteTicketBookingData = async (req, res) => {
+  const { id } = req.params;
   try {
-    const deletedDetails = await ticketBookingModel.findByIdAndRemove(
-      req.params.id
-    );
+    const deleteCustomer = await ticketBookingModel.findByIdAndDelete({
+      _id: id,
+    });
     res.status(200).send({
       msg: "Delete Successful",
-      bookingDetails: deletedDetails,
+      bookingDetails: deleteCustomer,
     });
   } catch (error) {
     res.status(400).send(error);
