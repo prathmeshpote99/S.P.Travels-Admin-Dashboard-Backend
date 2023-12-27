@@ -17,7 +17,7 @@ app.use(express.json());
 
 // Allow requests only from a specific origin (e.g., http://localhost:3001)
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["https://sptravels-admin.vercel.app", "http://localhost:3000"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
