@@ -14,7 +14,11 @@ const PORT = process.env.PORT || 8000;
 //   .catch((err) => console.log(err));
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 const ticketBookingRoute = require("./route/ticketbookingRoute");
 app.use("/addcustomer", ticketBookingRoute);
