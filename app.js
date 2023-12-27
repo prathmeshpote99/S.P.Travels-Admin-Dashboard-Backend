@@ -14,7 +14,16 @@ const PORT = process.env.PORT || 8000;
 //   .catch((err) => console.log(err));
 
 app.use(express.json());
-app.use(cors());
+
+// Allow requests only from a specific origin (e.g., http://localhost:3001)
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 
 const ticketBookingRoute = require("./route/ticketbookingRoute");
 app.use("/addcustomer", ticketBookingRoute);
