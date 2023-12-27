@@ -14,16 +14,7 @@ const PORT = process.env.PORT || 8000;
 //   .catch((err) => console.log(err));
 
 app.use(express.json());
-
-// Allow requests only from a specific origin (e.g., http://localhost:3001)
-const corsOptions = {
-  origin: ["https://sptravels-admin.vercel.app", "http://localhost:3000"],
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 const ticketBookingRoute = require("./route/ticketbookingRoute");
 app.use("/addcustomer", ticketBookingRoute);
