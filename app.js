@@ -20,6 +20,12 @@ app.use(
   })
 );
 
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//   })
+// );
+
 const ticketBookingRoute = require("./route/ticketbookingRoute");
 app.use("/addcustomer", ticketBookingRoute);
 
