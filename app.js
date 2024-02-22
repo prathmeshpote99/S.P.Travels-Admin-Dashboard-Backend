@@ -1,19 +1,14 @@
 require("dotenv").config();
-// const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 require("./db/conn");
 const cors = require("cors");
 const PORT = process.env.PORT || 8000;
 
-// mongoose
-//   .connect(process.env.MONGODB_URI)
-//   .then(() => {
-//     console.log("Database Connected Successfully");
-//   })
-//   .catch((err) => console.log(err));
-
 app.use(express.json());
+app.use(bodyParser.json({ limit: "100mb" }));
+
 app.use(
   cors({
     origin: "https://sptravels-admin.vercel.app",
