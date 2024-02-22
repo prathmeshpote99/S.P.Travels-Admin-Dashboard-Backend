@@ -97,9 +97,23 @@ const deleteTicketBookingData = async (req, res) => {
   }
 };
 
+const getCustomerById = async (req, res) => {
+  try {
+    const data = await ticketBookingModel.findOne({ _id: req.params.id });
+    if (data) {
+      res.status(200).send({ msg: "User details", data });
+    } else {
+      res.status(400).send({ msg: "User doesn't exist" });
+    }
+  } catch (err) {
+    res.status(500).send({ msg: err });
+  }
+};
+
 module.exports = {
   addTicketBookingData,
   getCustomers,
   updateTicketBookingData,
   deleteTicketBookingData,
+  getCustomerById,
 };

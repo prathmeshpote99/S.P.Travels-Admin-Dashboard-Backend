@@ -8,6 +8,9 @@ router.post("/add", ticketBookingController.addTicketBookingData);
 // Get Ticket Booking
 router.get("/find", ticketBookingController.getCustomers);
 
+// Get User details by ID
+router.get("/user/:id", ticketBookingController.getCustomerById);
+
 // Update Ticket Booking
 router.put("/update/:id", ticketBookingController.updateTicketBookingData);
 
