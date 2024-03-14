@@ -24,6 +24,9 @@ app.use(
 const ticketBookingRoute = require("./route/ticketbookingRoute");
 app.use("/addcustomer", ticketBookingRoute);
 
+const authRouter = require("./route/authRoute");
+app.use("/auth", authRouter);
+
 app.listen(PORT, () => {
   console.log(`Server Running on Port ${PORT}`);
 });
