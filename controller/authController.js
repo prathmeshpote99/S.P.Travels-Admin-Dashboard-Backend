@@ -6,7 +6,7 @@ require("dotenv").config();
 //Signup User
 const signupUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, corporate } = req.body;
 
     //Check if user already exists in the database
     const user = await authModel.findOne({ email });
@@ -23,11 +23,14 @@ const signupUser = async (req, res) => {
       name,
       email,
       password: hashPassword,
+      corporate,
     });
 
     const saveUser = await newUser.save();
 
-    return res.status(200).send({ msg: "User created successfully", data: saveUser });
+    return res
+      .status(200)
+      .send({ msg: "User created successfully", data: saveUser });
   } catch (error) {
     console.log(error);
     return res.status(400).send(error);
@@ -64,6 +67,7 @@ const loginUser = async (req, res) => {
     return res.status(200).send({
       msg: "Login Successfully",
       token,
+      user,
     });
   } catch (error) {
     console.log(error);
@@ -71,4 +75,18 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { signupUser, loginUser };
+//Get Loggedin User By Id
+const getCostomerById = async (req, res) => {
+  try {
+    const data = await authModel.findOne({ _id: req.params.id });
+    if (data) {
+      return res.status(200).send({ msg: "Get customer successfully", data });
+    } else {
+      return res.status(400).send({ msg: "User not found" });
+    }
+  } catch (error) {
+    return res.status(500).send({ msg: error });
+  }
+};
+
+module.exports = { signupUser, loginUser, getCostomerById };

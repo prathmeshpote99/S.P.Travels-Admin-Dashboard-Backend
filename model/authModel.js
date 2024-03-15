@@ -20,6 +20,10 @@ const authScheama = new mongoose.Schema({
     type: String,
     required: true,
   },
+  corporate: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("userDetails", authScheama);
