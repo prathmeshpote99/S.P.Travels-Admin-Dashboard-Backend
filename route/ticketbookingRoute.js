@@ -17,4 +17,7 @@ router.put("/update/:id", ticketBookingController.updateTicketBookingData);
 // Delete Ticket Booking
 router.delete("/delete/:id", ticketBookingController.deleteTicketBookingData);
 
+// Payment
+router.post("/payment", ticketBookingController.paymentGateway);
+
 module.exports = router;

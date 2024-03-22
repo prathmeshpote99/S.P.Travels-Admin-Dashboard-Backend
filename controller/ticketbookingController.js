@@ -1,3 +1,6 @@
+require("dotenv").config();
+const nodemailer = require("nodemailer");
+const Razorpay = require("razorpay");
 const ticketBookingModel = require("../model/ticketbookingModel");
 
 const addTicketBookingData = async (req, res) => {
@@ -110,10 +113,60 @@ const getCustomerById = async (req, res) => {
   }
 };
 
+const paymentGateway = async (req, res) => {
+  try {
+    const instance = new Razorpay({
+      key_id: process.env.YOUR_RAZORPAY_KEY_ID,
+      key_secret: process.env.YOUR_RAZORPAY_KEY_SECRET,
+    });
+
+    const options = {
+      type: "link",
+      amount: req.body.amount, // amount in smallest currency unit
+      currency: "INR",
+      description: "Ticket Booking",
+      customer: {
+        name: req.body.fullName,
+        email: req.body.email,
+      },
+    };
+
+    // Use await here to wait for the order to be created
+    const order = await instance.invoices.create(options);
+
+    // Send an email to the customer with the payment link
+    let transporter = await nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASS,
+      },
+    });
+
+    let mailOptions = {
+      from: process.env.EMAIL,
+      to: req.body.email,
+      subject: "Payment Link",
+      text: `Click here to pay: ${order.short_url}\nTotal Amount: ${req.body.amount}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return res.status(200).send({
+      msg: "Payment is successful",
+      paymentLink: order.short_url,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
+  }
+};
+
 module.exports = {
   addTicketBookingData,
   getCustomers,
   updateTicketBookingData,
   deleteTicketBookingData,
   getCustomerById,
+  paymentGateway,
 };
