@@ -147,7 +147,9 @@ const paymentGateway = async (req, res) => {
       from: process.env.EMAIL,
       to: req.body.email,
       subject: "Payment Link",
-      text: `Click here to pay: ${order.short_url}\nTotal Amount: ${req.body.amount}`,
+      text: `Click here to pay: ${order.short_url}\nTotal Amount: ${
+        req.body.amount / 100
+      }`,
     };
 
     await transporter.sendMail(mailOptions);
