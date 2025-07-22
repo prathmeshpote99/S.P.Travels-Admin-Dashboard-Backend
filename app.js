@@ -27,6 +27,14 @@ app.use("/addcustomer", ticketBookingRoute);
 const authRouter = require("./route/authRoute");
 app.use("/auth", authRouter);
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    message: "API is running",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server Running on Port ${PORT}`);
 });
